@@ -11,7 +11,10 @@ fs.readFile("./tododb.json", (err, date) => {
 });
 
 const getAllTasks = (req, res) => {
-  res.state(200).json(Tasks);
+  console.log(Tasks);
+  // res.state(200)
+  res.status(200)
+  res.json(Tasks);
 };
 
 const createTask = (req, res) => {
@@ -24,8 +27,9 @@ const createTask = (req, res) => {
 
   Tasks.push(task);
 
-  fs.writeFile("./tosodb.json", JSON.stringify(Tasks), (err) => {
-    res.state(200).json(Tasks);
+  fs.writeFile("././tosodb.json", JSON.stringify(Tasks), (err) => {
+    res.status(200).json(Tasks);
+    console.log(Tasks);
   });
 };
 
@@ -33,7 +37,7 @@ const deleteTask = (req, res) => {
   const { id } = req.params;
   let check = false;
 
-  movies.forEach((task) => {
+  Tasks.forEach((task) => {
     if (task.id == id) {
       task.isDel = true;
       check = true;
@@ -42,7 +46,7 @@ const deleteTask = (req, res) => {
 
   if (check) {
     fs.writeFile("./tododb.json", JSON.stringify(Tasks), (err) => {
-      res.status(200).json(movies);
+      res.status(200).json(Tasks);
     });
   } else {
     res.status(400).json("No tasks");
