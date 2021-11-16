@@ -11,7 +11,7 @@ fs.readFile("./tododb.json", (err, date) => {
 });
 
 const getAllTasks = (req, res) => {
-  console.log(Tasks);
+  console.log("get log",Tasks);
   // res.state(200)
   res.status(200)
   res.json(Tasks);
@@ -27,9 +27,9 @@ const createTask = (req, res) => {
 
   Tasks.push(task);
 
-  fs.writeFile("././tosodb.json", JSON.stringify(Tasks), (err) => {
+  fs.writeFile("./tosodb.json", JSON.stringify(Tasks), (err) => {
     res.status(200).json(Tasks);
-    console.log(Tasks);
+    console.log("post log",Tasks);
   });
 };
 
