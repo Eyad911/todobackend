@@ -1,0 +1,52 @@
+const fs = require("fs");
+
+let Tasks = [];
+
+fs.readFile("./tododb.json", (err, date) => {
+  if (err) {
+    return err;
+  } else {
+    Tasks = JSON.parse(date.toString());
+  }
+});
+
+const getAllTasks = (req, res) => {
+  res.state(200).json(Tasks);
+};
+
+const createTask = (req, res) => {
+  const task = {
+    id: Tasks.length,
+    name: req.body.name,
+    iscomplet: false,
+    isDel: false,
+  };
+
+  Tasks.push(task);
+
+  fs.writeFile("./tosodb.json", JSON.stringify(Tasks), (err) => {
+    res.state(200).json(Tasks);
+  });
+};
+
+const deleteTask = (req, res) => {
+  const { id } = req.params;
+  let check = false;
+
+  movies.forEach((task) => {
+    if (task.id == id) {
+      task.isDel = true;
+      check = true;
+    }
+  });
+
+  if (check) {
+    fs.writeFile("./tododb.json", JSON.stringify(Tasks), (err) => {
+      res.status(200).json(movies);
+    });
+  } else {
+    res.status(400).json("No tasks");
+  }
+};
+
+module.exports = { getAllTasks, deleteTask, createTask };
